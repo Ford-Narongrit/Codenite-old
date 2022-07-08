@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraFollow : MonoBehaviour
+{
+    public Transform target;
+    public float damping;
+    public Vector3 offset;
+    private Vector3 velocity = Vector3.zero;
+
+    private void FixedUpdate() {
+        Vector3 movePosition = target.position + offset;
+        transform.position = Vector3.SmoothDamp(transform.position, movePosition, ref velocity, damping);
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
+    }
+}

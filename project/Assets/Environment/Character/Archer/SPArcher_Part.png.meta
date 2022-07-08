@@ -1,0 +1,528 @@
+fileFormatVersion: 2
+guid: bb7f0ba60153f704f849bd2cea3d0994
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4342826115737654160
+    second: SPArcher_Part_0
+  - first:
+      213: 5950474904278412834
+    second: SPArcher_Part_1
+  - first:
+      213: 7174001606729033135
+    second: SPArcher_Part_2
+  - first:
+      213: 9144373690604247943
+    second: SPArcher_Part_3
+  - first:
+      213: -8193432097925981668
+    second: SPArcher_Part_4
+  - first:
+      213: -2972041690002952767
+    second: SPArcher_Part_5
+  - first:
+      213: 1736919946238357974
+    second: SPArcher_Part_6
+  - first:
+      213: -3357633353987567070
+    second: SPArcher_Part_7
+  - first:
+      213: -3123326396576082647
+    second: SPArcher_Part_8
+  - first:
+      213: -7403459316581416167
+    second: SPArcher_Part_9
+  - first:
+      213: 979220671145050804
+    second: SPArcher_Part_10
+  - first:
+      213: 4585575805691683877
+    second: SPArcher_Part_11
+  - first:
+      213: 6011245302914697022
+    second: SPArcher_Part_12
+  - first:
+      213: 636349480740239889
+    second: SPArcher_Part_13
+  - first:
+      213: 3543808621848640934
+    second: SPArcher_Part_14
+  - first:
+      213: -1883512699462251130
+    second: SPArcher_Part_15
+  - first:
+      213: -3680017709809238316
+    second: SPArcher_Part_16
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 46
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SPArcher_Part_0
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 408
+        width: 42
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07cea2238ae2bb3c0800000000000000
+      internalID: -4342826115737654160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_1
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 425
+        width: 44
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22e24620665549250800000000000000
+      internalID: 5950474904278412834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_2
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 443
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa56a2ba37c2f8360800000000000000
+      internalID: 7174001606729033135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_3
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 408
+        width: 24
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78bd4e13c6757ee70800000000000000
+      internalID: 9144373690604247943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_4
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 324
+        width: 40
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1a96d7eae41b4e80800000000000000
+      internalID: -8193432097925981668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_5
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 325
+        width: 44
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cde8b954df21c6d0800000000000000
+      internalID: -2972041690002952767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_6
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 316
+        width: 24
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d1f3de0d77ca1810800000000000000
+      internalID: 1736919946238357974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_7
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 319
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2225199014a4761d0800000000000000
+      internalID: -3357633353987567070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_8
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 231
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9255b7eb037b7a4d0800000000000000
+      internalID: -3123326396576082647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_9
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 236
+        width: 45
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 913cb1e0af0a14990800000000000000
+      internalID: -7403459316581416167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_10
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 224
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b202542304e69d00800000000000000
+      internalID: 979220671145050804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_11
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 232
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 524e0ec56ec33af30800000000000000
+      internalID: 4585575805691683877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_12
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 139
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3747f901cb3c6350800000000000000
+      internalID: 6011245302914697022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_13
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 144
+        width: 45
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11ab6803b74c4d800800000000000000
+      internalID: 636349480740239889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_14
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 132
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ad31496a232e2130800000000000000
+      internalID: 3543808621848640934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_15
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 137
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68d8d9add2b6cd5e0800000000000000
+      internalID: -1883512699462251130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPArcher_Part_16
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 40
+        width: 94
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4de7ca7f363fdecc0800000000000000
+      internalID: -3680017709809238316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
