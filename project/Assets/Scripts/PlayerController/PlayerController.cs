@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
-using Photon.Realtime;
 
 public class PlayerController : MonoBehaviourPun, IPunObservable
 {
@@ -21,6 +20,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     private Vector2 movement = Vector2.zero;
     private Vector2 mousePos = Vector2.zero;
     private PhotonView view;
+    private float currentTime = 0f;
 
     private void Start()
     {
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     }
     private void Update()
     {
-        if (view.IsMine)
+        if (view.IsMine && !player.isDead())
         {
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     private void FixedUpdate()
     {
         healthBar.SetValue(player.currentHealth);
-        if (view.IsMine)
+        if (view.IsMine && !player.isDead())
         {
             player.movement(movement);
             player.Rotation(mousePos);
@@ -60,10 +60,19 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         if (player.isDead())
         {
-            gameObject.SetActive(false);
-            if (view.IsMine)
-                Invoke("respawn", respawnTime);
+            player.setDead(true);
+
+            currentTime += Time.deltaTime;
+            playerName.text = view.Owner.NickName + currentTime;
+            if (currentTime >= respawnTime)
+            {
+                if(view.IsMine)
+                    view.RPC("respawn",RpcTarget.All);
+                currentTime = 0f;
+                playerName.text = view.Owner.NickName;
+            }
         }
+
     }
 
     public void setCamera(Camera camera)
@@ -78,11 +87,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         weapon.color = _weapon;
     }
 
-    private void respawn()
-    {
-        player.respawn();
-        gameObject.SetActive(true);
-    }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)

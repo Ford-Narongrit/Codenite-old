@@ -7,6 +7,7 @@ public class PlayerModel : MonoBehaviour
     [SerializeField] private PhotonView view;
     [Header("Object Info")]
     [SerializeField] private Transform body;
+    [SerializeField] private Transform deadbody;
     [SerializeField] private Transform aim;
     [SerializeField] private GameObject bulletPrefab;
 
@@ -22,6 +23,7 @@ public class PlayerModel : MonoBehaviour
         currentHealth = maxHealth;
         currentSpeed = moveSpeed;
 
+        setDead(false);
         view = GetComponent<PhotonView>();
     }
 
@@ -51,10 +53,25 @@ public class PlayerModel : MonoBehaviour
         GameObject bullet = PhotonNetwork.Instantiate(bulletPrefab.name, aim.position, aim.rotation);
         bullet.GetComponent<Bullet>().setOwnerViewID(view.ViewID);
     }
+    public void setDead(bool _dead)
+    {
+        body.gameObject.SetActive(!_dead);
+        deadbody.gameObject.SetActive(_dead);
+    }
+    
+    [PunRPC]
     public void respawn()
     {
         goSpawnPoint();
+        setDead(false);
         currentHealth = maxHealth;
+        currentSpeed = moveSpeed;
+    }
+    
+    [PunRPC]
+    public void hide()
+    {
+        gameObject.SetActive(false);
     }
 
     public void goSpawnPoint()

@@ -137,15 +137,15 @@ public class MonsterModel : MonoBehaviour
     {
         return Vector2.Distance(spawnPosition, transform.position) <= 0.5;
     }
-    public GameObject FindClosestTarget(string tag)
+    public GameObject FindClosestPlayer()
     {
         float distanceToClosestTarget = Mathf.Infinity;
         GameObject closestTarget = null;
-        GameObject[] allTarget = GameObject.FindGameObjectsWithTag(tag);
+        GameObject[] allTarget = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject target in allTarget)
         {
             float distance = Vector2.Distance(target.transform.position, transform.position);
-            if (distance < chaseRadius && distance < distanceToClosestTarget)
+            if (distance < chaseRadius && distance < distanceToClosestTarget && !target.GetComponent<PlayerModel>().isDead())
             {
                 distanceToClosestTarget = distance;
                 closestTarget = target;

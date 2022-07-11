@@ -880,7 +880,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startMenu: StartMenu
+  gameScene: Level1
   roomCode: {fileID: 978051955}
+  startBtn: {fileID: 1449583673}
   playerCellPrefab: {fileID: 7654219540239218124, guid: 81637f22fef20834896c7b627af123a3, type: 3}
   spectatorContent: {fileID: 1931225942}
   playerContent: {fileID: 2129996893}
@@ -1132,8 +1134,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: 0}
-  m_SizeDelta: {x: 220, y: 0}
+  m_AnchoredPosition: {x: 105, y: 0}
+  m_SizeDelta: {x: 210, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1422802901
 MonoBehaviour:

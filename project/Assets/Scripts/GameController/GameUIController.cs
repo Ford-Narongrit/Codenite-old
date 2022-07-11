@@ -20,42 +20,94 @@ public class GameUIController : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject menu;
     [SerializeField] private GameObject codePanel;
 
-    private Transform player;
-
+    private GameObject player;
+    
+    private int playerSpectatateIndex = 0;
+    private bool isSpectate = false;
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Tab))
+        if (!isSpectate)
         {
-            worldMap.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Tab))
+            {
+                worldMap.SetActive(true);
+            }
+            if (Input.GetKeyUp(KeyCode.M) || Input.GetKeyUp(KeyCode.Tab))
+            {
+                worldMap.SetActive(false);
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                codePanel.SetActive(!codePanel.activeSelf);
+            }
         }
-        if (Input.GetKeyUp(KeyCode.M) || Input.GetKeyUp(KeyCode.Tab))
+        else
         {
-            worldMap.SetActive(false);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                cameraLookAt(getPlayerToSpectatate(1).transform);
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                cameraLookAt(getPlayerToSpectatate(-1).transform);
+            }
         }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             menu.SetActive(!menu.activeSelf);
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            codePanel.SetActive(!codePanel.activeSelf);
         }
     }
 
     public void setPlayer(GameObject newPlayer)
     {
-        player = newPlayer.transform;
-        playerCamera.GetComponent<CameraFollow>().SetTarget(player);
-        minimapCamera.GetComponent<CameraFollow>().SetTarget(player);
+        player = newPlayer;
+        cameraLookAt(player.transform);
 
         playerController = newPlayer.GetComponent<PlayerController>();
         playerController.setCamera(playerCamera);
     }
+
+    public void setSpectator()
+    {
+        player.GetPhotonView().RPC("hide", RpcTarget.All);
+        isSpectate = true;
+        worldMap.SetActive(false);
+        codePanel.SetActive(false);
+
+        cameraLookAt(getPlayerToSpectatate(0).transform);
+    }
+
+    private GameObject getPlayerToSpectatate(int _index)
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        playerSpectatateIndex = playerSpectatateIndex + _index;
+        if(playerSpectatateIndex < 0)
+            playerSpectatateIndex = players.Length - 1;
+        if(playerSpectatateIndex >= players.Length)
+            playerSpectatateIndex = 0;
+
+        return players[playerSpectatateIndex];
+    }
+
+    private void cameraLookAt(Transform _player)
+    {
+        playerCamera.GetComponent<CameraFollow>().SetTarget(_player.transform);
+        minimapCamera.GetComponent<CameraFollow>().SetTarget(_player.transform);
+    }
+
     public void returnToStartMenu()
     {
-        PhotonNetwork.LeaveRoom();
+        ConfirmUIController.Instance.showQuestion("Do you want to leave this game ?",
+        () =>
+        {
+            PhotonNetwork.LeaveRoom();
+        },
+        () =>
+        {
+            // Do nothing
+        }
+    );
+
     }
 
     public override void OnLeftRoom()

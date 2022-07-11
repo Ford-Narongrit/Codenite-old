@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
-
+using ExitGames.Client.Photon;
 
 public class QuickPlayWaitingRoom : MonoBehaviourPunCallbacks
 {
@@ -30,17 +30,30 @@ public class QuickPlayWaitingRoom : MonoBehaviourPunCallbacks
     private bool readyToCountdown;
     private bool readyToStart;
     private bool startingGame;
+    private Hashtable myCustomProperties = new Hashtable();
 
 
-    private void Start() {
+
+    private void Start()
+    {
         myPhotonView = GetComponent<PhotonView>();
         fullGameTimer = maxFullGameTime;
         notFullGameTimer = maxWaitTime;
         timerToStartGame = maxWaitTime;
 
         PlayerCountUpdate();
+        setPhotonProperties();
     }
-    private void Update() {
+
+    private void setPhotonProperties()
+    {
+        myCustomProperties["ISPLAY"] = true;
+        myCustomProperties["QUALIFIED"] = true;
+        myCustomProperties["TEAM"] = null;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
+    }
+    private void Update()
+    {
         WaitingForMorePlayer();
     }
 
@@ -50,7 +63,7 @@ public class QuickPlayWaitingRoom : MonoBehaviourPunCallbacks
         playerCount = PhotonNetwork.PlayerList.Length;
         roomSize = PhotonNetwork.CurrentRoom.MaxPlayers;
         playerCountText.text = playerCount + " / " + roomSize;
-        if(playerCount == roomSize)
+        if (playerCount == roomSize)
         {
             readyToStart = true;
         }
@@ -67,7 +80,7 @@ public class QuickPlayWaitingRoom : MonoBehaviourPunCallbacks
 
     private void WaitingForMorePlayer()
     {
-        if(playerCount <= 1)
+        if (playerCount <= 1)
         {
             ResetTimer();
         }
@@ -85,14 +98,14 @@ public class QuickPlayWaitingRoom : MonoBehaviourPunCallbacks
         string tempTimer = string.Format("{0:00}", timerToStartGame);
         timerToStartText.text = tempTimer;
 
-        if(timerToStartGame <= 0f)
+        if (timerToStartGame <= 0f)
         {
-            if(startingGame)
+            if (startingGame)
                 return;
             StartGame();
         }
     }
-    
+
     private void ResetTimer()
     {
         timerToStartGame = maxWaitTime;
@@ -103,7 +116,7 @@ public class QuickPlayWaitingRoom : MonoBehaviourPunCallbacks
     private void StartGame()
     {
         startingGame = true;
-        if(!PhotonNetwork.IsMasterClient)
+        if (!PhotonNetwork.IsMasterClient)
             return;
         Debug.Log("Starting Game . . .");
         PhotonNetwork.CurrentRoom.IsOpen = false;
@@ -115,7 +128,7 @@ public class QuickPlayWaitingRoom : MonoBehaviourPunCallbacks
     {
         PlayerCountUpdate();
 
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
             myPhotonView.RPC("RPC_SendTimer", RpcTarget.Others, timerToStartGame);
     }
 
@@ -134,7 +147,7 @@ public class QuickPlayWaitingRoom : MonoBehaviourPunCallbacks
     {
         timerToStartGame = timeIn;
         notFullGameTimer = timeIn;
-        if(timeIn < fullGameTimer)
+        if (timeIn < fullGameTimer)
         {
             fullGameTimer = timeIn;
         }

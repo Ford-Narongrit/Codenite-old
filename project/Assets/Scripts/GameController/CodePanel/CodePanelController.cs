@@ -1,10 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using ExitGames.Client.Photon;
 
 public class CodePanelController : MonoBehaviour
 {
+    [SerializeField] private GameUIController gameUIController;
     [Header("ItemList info")]
     [SerializeField] private int maxInventory = 5;
     [SerializeField] private int answerSlot = 3;
@@ -20,6 +22,7 @@ public class CodePanelController : MonoBehaviour
     private List<AnswerSlot> answerList = new List<AnswerSlot>();
     private List<ItemController> itemUI = new List<ItemController>();
     private List<string> itemList = new List<string>();
+    private Hashtable myCustomProperties = new Hashtable();
     private void Start()
     {
         for (int i = 0; i < maxInventory; i++)
@@ -94,12 +97,28 @@ public class CodePanelController : MonoBehaviour
 
     public void OnClickSubmit()
     {
+        Debug.Log("Submit");
+        if (checkAnswer())
+        {
+            myCustomProperties["QUALIFIED"] = true;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
+            gameUIController.setSpectator();
+        }
+        else
+        {
+            // error alert
+        }
+
+    }
+
+    private bool checkAnswer()
+    {
         //TODO add condition to submit
         foreach (AnswerSlot slot in answerList)
         {
             if (slot.getItem() != null)
                 Debug.Log(slot.getItem().getitemName());
         }
-        Debug.Log("Submit");
+        return true;
     }
 }

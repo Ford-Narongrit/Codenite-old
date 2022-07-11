@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using Photon.Pun;
 using Photon.Realtime;
+using ExitGames.Client.Photon;
 public class GameSetUpController : MonoBehaviour
 {
     [Header("Player spawner")]
@@ -19,6 +20,8 @@ public class GameSetUpController : MonoBehaviour
     [Header("Map setup")]
     [SerializeField] private Text[] itemNameText;
     [SerializeField] private string[] itemNameValue;
+
+    private Hashtable myCustomProperties = new Hashtable();
     void Start()
     {
         setCodeFragmentName();
@@ -27,14 +30,12 @@ public class GameSetUpController : MonoBehaviour
         {
             SpawnMonster();
         }
-
-        // foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
-        // {
-        //     Debug.Log(player.Value.CustomProperties.ToString());
-        // }
     }
     private void intiPlayer()
     {
+        myCustomProperties["QUALIFIED"] = false;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
+        
         int playerID = PhotonNetwork.LocalPlayer.ActorNumber;
         List<Vector3> availablePlaces = findLocationsOfTiles(playerSpawnpoint);
         Vector2 position = new Vector2(availablePlaces[playerID - 1].x + 0.5f, availablePlaces[playerID - 1].y + 0.5f);
@@ -50,6 +51,12 @@ public class GameSetUpController : MonoBehaviour
         }
 
         gameUI.setPlayer(player);
+
+        if(!(bool)playerPhoton.CustomProperties["QUALIFIED"] || !(bool)playerPhoton.CustomProperties["ISPLAY"])
+        {
+            gameUI.setSpectator();
+            Debug.Log("spectator");
+        }
     }
 
     private void SpawnMonster()

@@ -976,6 +976,7 @@ MonoBehaviour:
   startMenu: StartMenu
   gameScene: Level1
   roomCode: {fileID: 427429254}
+  startBtn: {fileID: 208060794}
   playerCellPrefab: {fileID: 7654219540239218124, guid: 81637f22fef20834896c7b627af123a3, type: 3}
   teamCellPrefab: {fileID: 8206912115008958990, guid: ed89cb7c06824c84a97f152072a2f6b7, type: 3}
   spectatorContent: {fileID: 211802041}

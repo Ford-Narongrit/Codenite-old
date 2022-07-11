@@ -18,7 +18,7 @@ public class MonsterController : MonoBehaviourPun, IPunObservable
     {
         if (!monster.Isdead())
         {
-            GameObject target = monster.FindClosestTarget("Player");
+            GameObject target = monster.FindClosestPlayer();
             if (target && monster.isInMoveRange() && !reset)
             {
                 monster.chasing(target.transform.position);

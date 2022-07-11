@@ -14,6 +14,7 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
 
     [Header("UI")]
     [SerializeField] private Text roomCode;
+    [SerializeField] private GameObject startBtn;
     [SerializeField] private PlayerCell playerCellPrefab;
     [SerializeField] private TeamCell teamCellPrefab;
     [SerializeField] private Transform spectatorContent;
@@ -30,9 +31,16 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
         int maxPlayer = PhotonNetwork.CurrentRoom.MaxPlayers;
 
         myCustomProperties["ISPLAY"] = false;
+        myCustomProperties["QUALIFIED"] = false;
+        myCustomProperties["TEAM"] = null;
         PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
 
         roomCode.text = PhotonNetwork.CurrentRoom.Name;
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            startBtn.SetActive(false);
+        }
+
         for (int i = 1; i <= maxPlayer / member; i++)
         {
             TeamCell newTeam = Instantiate(teamCellPrefab, teamsContent);
@@ -49,12 +57,14 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
     public void OnClickJoin(GameObject btn)
     {
         myCustomProperties["ISPLAY"] = true;
+        myCustomProperties["QUALIFIED"] = true;
         myCustomProperties["TEAM"] = btn.GetComponent<TeamCell>().getTeamName();
         PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
     }
     public void OnClickCancel()
     {
         myCustomProperties["ISPLAY"] = false;
+        myCustomProperties["QUALIFIED"] = false;
         myCustomProperties["TEAM"] = null;
         PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
     }

@@ -46,6 +46,8 @@ MonoBehaviour:
   - takeDamage
   - setItem
   - warpOut
+  - respawn
+  - hide
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

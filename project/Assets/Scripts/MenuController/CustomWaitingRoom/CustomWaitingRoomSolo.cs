@@ -10,9 +10,11 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
 {
     [Header("Scene")]
     [SerializeField] private string startMenu;
+    [SerializeField] private string gameScene;
 
     [Header("UI")]
     [SerializeField] private Text roomCode;
+    [SerializeField] private GameObject startBtn;
     [SerializeField] private PlayerCell playerCellPrefab;
     [SerializeField] private Transform spectatorContent;
     [SerializeField] private Transform playerContent;
@@ -27,9 +29,16 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
         member = (int)PhotonNetwork.CurrentRoom.CustomProperties["MEMBER"];
 
         myCustomProperties["ISPLAY"] = false;
+        myCustomProperties["QUALIFIED"] = false;
+        myCustomProperties["TEAM"] = null;
         PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
 
         roomCode.text = PhotonNetwork.CurrentRoom.Name;
+
+        if(!PhotonNetwork.IsMasterClient)
+        {
+            startBtn.SetActive(false);
+        }
     }
 
     // ******** OnClick ********
@@ -40,11 +49,13 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
     public void OnClickJoin()
     {
         myCustomProperties["ISPLAY"] = true;
+        myCustomProperties["QUALIFIED"] = true;
         PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
     }
     public void OnClickCancel()
     {
         myCustomProperties["ISPLAY"] = false;
+        myCustomProperties["QUALIFIED"] = false;
         PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
     }
     public void OnClickStart()
@@ -115,6 +126,10 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
 
     private void startGame()
     {
-        Debug.Log("startGame custom");
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+        Debug.Log("Starting Game . . .");
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.LoadLevel(gameScene);
     }
 }
