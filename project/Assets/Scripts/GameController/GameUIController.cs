@@ -58,6 +58,10 @@ public class GameUIController : MonoBehaviourPunCallbacks
         }
     }
 
+    private void LateUpdate() {
+        smileBar.SetValue(playerController.currentChargeTime);
+    }
+
     public void setPlayer(GameObject newPlayer)
     {
         player = newPlayer;
@@ -65,6 +69,8 @@ public class GameUIController : MonoBehaviourPunCallbacks
 
         playerController = newPlayer.GetComponent<PlayerController>();
         playerController.setCamera(playerCamera);
+
+        smileBar.SetMaxValue(playerController.chargeToFireTime);
     }
 
     public void setSpectator()

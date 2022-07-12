@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     [SerializeField] private Text playerName;
     [SerializeField] private GaugeBar healthBar;
     [SerializeField] private float respawnTime = 10f;
+    [SerializeField] public float chargeToFireTime = 10f;
 
     [Header("Player Skin")]
     [SerializeField] private SpriteRenderer hair;
@@ -20,7 +21,9 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     private Vector2 movement = Vector2.zero;
     private Vector2 mousePos = Vector2.zero;
     private PhotonView view;
-    private float currentTime = 0f;
+    private float currentRespawnTime = 0f;
+    public float currentChargeTime = 0f;
+    public bool canAttack;
 
     private void Start()
     {
@@ -36,9 +39,18 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
             mousePos = playerCamera.ScreenToWorldPoint(Input.mousePosition);
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButton("Fire1"))
             {
-                player.attack();
+                currentChargeTime += Time.deltaTime;
+                if(currentChargeTime >= chargeToFireTime)
+                {
+                    player.attack();
+                    currentChargeTime = 0f;
+                }
+            }
+            if(Input.GetButtonUp("Fire1"))
+            {
+                currentChargeTime = 0f;
             }
         }
     }
@@ -62,13 +74,13 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         {
             player.setDead(true);
 
-            currentTime += Time.deltaTime;
-            playerName.text = view.Owner.NickName + currentTime;
-            if (currentTime >= respawnTime)
+            currentRespawnTime += Time.deltaTime;
+            playerName.text = view.Owner.NickName + currentRespawnTime;
+            if (currentRespawnTime >= respawnTime)
             {
                 if(view.IsMine)
                     view.RPC("respawn",RpcTarget.All);
-                currentTime = 0f;
+                currentRespawnTime = 0f;
                 playerName.text = view.Owner.NickName;
             }
         }
