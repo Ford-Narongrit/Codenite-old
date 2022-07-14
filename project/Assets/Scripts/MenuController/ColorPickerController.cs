@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
 public class ColorPickerController : MonoBehaviour
 {
     [Header("UI")]
@@ -16,7 +15,6 @@ public class ColorPickerController : MonoBehaviour
     [SerializeField] private SpriteRenderer head;
     [SerializeField] private SpriteRenderer body;
     [SerializeField] private SpriteRenderer weapon;
-    private Hashtable myCustomProperties = new Hashtable();
 
     void Start()
     {
@@ -30,7 +28,7 @@ public class ColorPickerController : MonoBehaviour
             colorPicker.GetComponentInChildren<Button>().onClick.AddListener(delegate { OnClickColorCell(colorCell); });
         }
         Player player = PhotonNetwork.LocalPlayer;
-        if (player.CustomProperties["SKIN_HAIR"] != null)
+        if (player.CustomProperties["SKIN"] != null)
         {
             setPlayerColor(ColorString.GetColorFromString((string)player.CustomProperties["SKIN_HAIR"]),
                             ColorString.GetColorFromString((string)player.CustomProperties["SKIN_HEAD"]),
@@ -59,10 +57,6 @@ public class ColorPickerController : MonoBehaviour
     public void setPhotonPlayerColor(Color _hair, Color _head, Color _body, Color _weapon)
     {
         Player player = PhotonNetwork.LocalPlayer;
-        myCustomProperties["SKIN_HAIR"] = ColorString.GetStringFromColor(_hair);
-        myCustomProperties["SKIN_HEAD"] = ColorString.GetStringFromColor(_head);
-        myCustomProperties["SKIN_BODY"] = ColorString.GetStringFromColor(_body);
-        myCustomProperties["SKIN_WEAPON"] = ColorString.GetStringFromColor(_weapon);
-        player.SetCustomProperties(myCustomProperties);
+        player.SetCustomProperties(MyCustomProperties.setColorProperties(_hair, _head, _body, _weapon));
     }
 }

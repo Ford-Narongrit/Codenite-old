@@ -19,7 +19,6 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
     [SerializeField] private Transform spectatorContent;
     [SerializeField] private Transform playerContent;
     private List<PlayerCell> playerList = new List<PlayerCell>();
-    private Hashtable myCustomProperties = new Hashtable();
     private string mode;
     private int member;
 
@@ -28,11 +27,7 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
         mode = (string)PhotonNetwork.CurrentRoom.CustomProperties["MODE"];
         member = (int)PhotonNetwork.CurrentRoom.CustomProperties["MEMBER"];
 
-        myCustomProperties["ISPLAY"] = false;
-        myCustomProperties["QUALIFIED"] = false;
-        myCustomProperties["TEAM"] = null;
-        PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
-
+        PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setInfoProperties(true, null));
         roomCode.text = PhotonNetwork.CurrentRoom.Name;
 
         if(!PhotonNetwork.IsMasterClient)
@@ -48,15 +43,11 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
     }
     public void OnClickJoin()
     {
-        myCustomProperties["ISPLAY"] = true;
-        myCustomProperties["QUALIFIED"] = true;
-        PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setInfoProperties(false, null));
     }
     public void OnClickCancel()
     {
-        myCustomProperties["ISPLAY"] = false;
-        myCustomProperties["QUALIFIED"] = false;
-        PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setInfoProperties(true, null));
     }
     public void OnClickStart()
     {
@@ -106,15 +97,15 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
 
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
-            if (player.Value.CustomProperties.ContainsKey("ISPLAY"))
+            if (player.Value.CustomProperties.ContainsKey("ISSPECTATE"))
             {
-                if ((bool)player.Value.CustomProperties["ISPLAY"])
+                if (!(bool)player.Value.CustomProperties["ISSPECTATE"])
                 {
                     PlayerCell newPlayer = Instantiate(playerCellPrefab, playerTarget);
                     newPlayer.setPlayerName(player.Value);
                     playerList.Add(newPlayer);
                 }
-                if (!(bool)player.Value.CustomProperties["ISPLAY"])
+                if ((bool)player.Value.CustomProperties["ISSPECTATE"])
                 {
                     PlayerCell newPlayer = Instantiate(playerCellPrefab, spectatorTarget);
                     newPlayer.setPlayerName(player.Value);

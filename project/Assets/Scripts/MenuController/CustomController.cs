@@ -9,7 +9,8 @@ using Photon.Realtime;
 public class CustomController : MonoBehaviourPunCallbacks
 {
     [Header("Scene")]
-    [SerializeField] private string customWaitingRoom;
+    [SerializeField] private string customWaitingRoomSolo;
+    [SerializeField] private string customWaitingRoomTeam;
     [SerializeField] private string startMenu;
 
     [Header("UI")]
@@ -106,11 +107,11 @@ public class CustomController : MonoBehaviourPunCallbacks
     {
         if(mode == "SOLO")
         {
-            SceneManager.LoadScene(customWaitingRoom);
+            SceneManager.LoadScene(customWaitingRoomSolo);
         }
         else
         {
-            SceneManager.LoadScene("CustomWaitingRoomTEAM");
+            SceneManager.LoadScene(customWaitingRoomTeam);
         }
     }
 

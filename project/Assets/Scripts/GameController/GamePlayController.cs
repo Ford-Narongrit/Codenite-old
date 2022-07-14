@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,7 +37,8 @@ public class GamePlayController : MonoBehaviourPunCallbacks
     private void countDown()
     {
         currentTime -= Time.deltaTime;
-        string tempTimer = string.Format("{0:00}", currentTime);
+        TimeSpan timeSpan = TimeSpan.FromSeconds(currentTime);
+        string tempTimer = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
         timer.text = tempTimer;
         if (currentTime <= 0f)
         {
@@ -63,7 +65,6 @@ public class GamePlayController : MonoBehaviourPunCallbacks
             if ((bool)player.Value.CustomProperties["QUALIFIED"])
             {
                 _qualifiedPlayer++;
-                Debug.Log("_qualifiedPlayer: "+ _qualifiedPlayer);
             }
         }
         return _qualifiedPlayer;
@@ -71,9 +72,8 @@ public class GamePlayController : MonoBehaviourPunCallbacks
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
-        if ((bool)targetPlayer.CustomProperties["QUALIFIED"])
+        if (!(bool)targetPlayer.CustomProperties["GAMEOVER"])
         {
-            Debug.Log("qualified");
             qualifiedPlayer++;
         }
         if (qualifiedPlayer == quota)

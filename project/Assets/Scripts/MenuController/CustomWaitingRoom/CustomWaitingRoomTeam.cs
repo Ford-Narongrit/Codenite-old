@@ -21,7 +21,6 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
     [SerializeField] private Transform teamsContent;
 
     private List<PlayerCell> playerList = new List<PlayerCell>();
-    private Hashtable myCustomProperties = new Hashtable();
     private string mode;
     private int member;
     void Start()
@@ -30,10 +29,7 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
         member = (int)PhotonNetwork.CurrentRoom.CustomProperties["MEMBER"];
         int maxPlayer = PhotonNetwork.CurrentRoom.MaxPlayers;
 
-        myCustomProperties["ISPLAY"] = false;
-        myCustomProperties["QUALIFIED"] = false;
-        myCustomProperties["TEAM"] = null;
-        PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setInfoProperties(true, null));
 
         roomCode.text = PhotonNetwork.CurrentRoom.Name;
         if (!PhotonNetwork.IsMasterClient)
@@ -56,17 +52,11 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
     }
     public void OnClickJoin(GameObject btn)
     {
-        myCustomProperties["ISPLAY"] = true;
-        myCustomProperties["QUALIFIED"] = true;
-        myCustomProperties["TEAM"] = btn.GetComponent<TeamCell>().getTeamName();
-        PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setInfoProperties(false, btn.GetComponent<TeamCell>().getTeamName()));
     }
     public void OnClickCancel()
     {
-        myCustomProperties["ISPLAY"] = false;
-        myCustomProperties["QUALIFIED"] = false;
-        myCustomProperties["TEAM"] = null;
-        PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setInfoProperties(true, null));
     }
     public void OnClickStart()
     {
@@ -105,9 +95,9 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
         playerList.Clear();
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
-            if (player.Value.CustomProperties.ContainsKey("ISPLAY"))
+            if (player.Value.CustomProperties.ContainsKey("ISSPECTATE"))
             {
-                if (!(bool)player.Value.CustomProperties["ISPLAY"])
+                if ((bool)player.Value.CustomProperties["ISSPECTATE"])
                 {
                     PlayerCell newPlayer = Instantiate(playerCellPrefab, spectatorContent);
                     newPlayer.setPlayerName(player.Value);

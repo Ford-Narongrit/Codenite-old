@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class ConclusionController : MonoBehaviour
+public class ConclusionController : MonoBehaviourPunCallbacks
 {
     [Header("Scene")]
     [SerializeField] private string gameScene;
-    [SerializeField] private string waittingScene;
+    [SerializeField] private string startMenu;
     [Header("info")]
     [SerializeField] private float nextSceneTime;
     [SerializeField] private int maxWinner;
@@ -18,23 +19,33 @@ public class ConclusionController : MonoBehaviour
     [SerializeField] private GameObject leaderCell;
     private float currentTime;
     private int currentplayers;
-    private bool startingGame;
+    private bool isLoading = false;
+    private bool isHaveWinner = false;
     private void Start()
     {
         currentTime = nextSceneTime;
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
-            if ((bool)player.Value.CustomProperties["ISPLAY"])
+            if (!(bool)player.Value.CustomProperties["ISSPECTATE"])
             {
                 GameObject leader = GameObject.Instantiate(leaderCell, contentview.transform);
                 LeaderCell cell = leader.GetComponent<LeaderCell>();
                 cell.setPlayerinfo(player.Value);
 
-                if ((bool)player.Value.CustomProperties["QUALIFIED"])
+                if (!(bool)player.Value.CustomProperties["GAMEOVER"])
                 {
                     currentplayers++;
                 }
+                if ((bool)player.Value.CustomProperties["GAMEOVER"])
+                {
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setQualified(false));
+                }
             }
+        }
+
+        if (currentplayers <= maxWinner)
+        {
+            isHaveWinner = true;
         }
     }
 
@@ -51,20 +62,26 @@ public class ConclusionController : MonoBehaviour
 
         if (currentTime <= 0)
         {
-            if (!startingGame)
+            if (isHaveWinner)
             {
-                if (currentplayers > maxWinner)
-                    startGame();
-                else
+                if (!isLoading)
+                {
                     backtoWaitRoom();
-
+                }
+            }
+            else
+            {
+                if (!isLoading)
+                {
+                    startGame();
+                }
             }
         }
     }
 
     private void startGame()
     {
-        startingGame = true;
+        isLoading = true;
         if (!PhotonNetwork.IsMasterClient)
             return;
         Debug.Log("Starting Game . . .");
@@ -73,10 +90,15 @@ public class ConclusionController : MonoBehaviour
 
     private void backtoWaitRoom()
     {
-        startingGame = true;
-        if (!PhotonNetwork.IsMasterClient)
-            return;
+        isLoading = true;
+        // if (!PhotonNetwork.IsMasterClient)
+        //     return;
         Debug.Log("back to waitting room . . .");
-        PhotonNetwork.LoadLevel(gameScene);
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene(startMenu);
     }
 }

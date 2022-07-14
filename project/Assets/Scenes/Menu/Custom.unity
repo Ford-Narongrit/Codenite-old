@@ -295,7 +295,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2622c4117343d46847b9d662f1f793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customWaitingRoom: CustomWaitingRoomSOLO
+  customWaitingRoomSolo: CustomWaitingRoomSolo
+  customWaitingRoomTeam: CustomWaitingRoomTeam
   startMenu: StartMenu
   modeBtn:
   - {fileID: 553706951}

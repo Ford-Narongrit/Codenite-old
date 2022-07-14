@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
-using ExitGames.Client.Photon;
 
 public class CodePanelController : MonoBehaviour
 {
@@ -22,7 +21,6 @@ public class CodePanelController : MonoBehaviour
     private List<AnswerSlot> answerList = new List<AnswerSlot>();
     private List<ItemController> itemUI = new List<ItemController>();
     private List<string> itemList = new List<string>();
-    private Hashtable myCustomProperties = new Hashtable();
     private void Start()
     {
         for (int i = 0; i < maxInventory; i++)
@@ -43,7 +41,6 @@ public class CodePanelController : MonoBehaviour
     {
         if (itemList.Count < maxInventory)
         {
-            // ItemModel newItem = new ItemModel(itemName);
             if (!itemList.Contains(itemName))
             {
                 GameObject newItemObject = Instantiate(itemPrefab, inventorySlotList[getEmpty()].transform);
@@ -62,7 +59,6 @@ public class CodePanelController : MonoBehaviour
         {
             if (inventorySlotList[i].GetComponentInChildren<ItemController>() == null)
             {
-                Debug.Log("index: " + i + " empty.");
                 return i;
             }
         }
@@ -71,7 +67,6 @@ public class CodePanelController : MonoBehaviour
 
     public void OnClickReset()
     {
-        Debug.Log("OnclickReset");
         foreach (ItemController item in itemUI)
         {
             item.resetPosition();
@@ -97,11 +92,9 @@ public class CodePanelController : MonoBehaviour
 
     public void OnClickSubmit()
     {
-        Debug.Log("Submit");
         if (checkAnswer())
         {
-            myCustomProperties["QUALIFIED"] = true;
-            PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setGameOver(false));
             gameUIController.setSpectator();
         }
         else

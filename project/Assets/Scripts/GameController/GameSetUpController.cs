@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using Photon.Pun;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
 public class GameSetUpController : MonoBehaviour
 {
     [Header("Player spawner")]
@@ -20,8 +19,6 @@ public class GameSetUpController : MonoBehaviour
     [Header("Map setup")]
     [SerializeField] private Text[] itemNameText;
     [SerializeField] private string[] itemNameValue;
-
-    private Hashtable myCustomProperties = new Hashtable();
     void Start()
     {
         setCodeFragmentName();
@@ -33,29 +30,30 @@ public class GameSetUpController : MonoBehaviour
     }
     private void intiPlayer()
     {
-        myCustomProperties["QUALIFIED"] = false;
-        PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
-        
-        int playerID = PhotonNetwork.LocalPlayer.ActorNumber;
+        Player playerPhoton = PhotonNetwork.LocalPlayer;
+        int playerID = playerPhoton.ActorNumber;
         List<Vector3> availablePlaces = findLocationsOfTiles(playerSpawnpoint);
         Vector2 position = new Vector2(availablePlaces[playerID - 1].x + 0.5f, availablePlaces[playerID - 1].y + 0.5f);
         GameObject player = PhotonNetwork.Instantiate(playerPrefabs.name, position, Quaternion.identity);
-
-        Player playerPhoton = PhotonNetwork.LocalPlayer;
-        if (playerPhoton.CustomProperties["SKIN_HAIR"] != null)
-        {
-            player.GetComponent<PlayerController>().setPlayerColor(ColorString.GetColorFromString((string)playerPhoton.CustomProperties["SKIN_HAIR"]),
-                            ColorString.GetColorFromString((string)playerPhoton.CustomProperties["SKIN_HEAD"]),
-                            ColorString.GetColorFromString((string)playerPhoton.CustomProperties["SKIN_BODY"]),
-                            ColorString.GetColorFromString((string)playerPhoton.CustomProperties["SKIN_WEAPON"]));
-        }
-
         gameUI.setPlayer(player);
 
-        if(!(bool)playerPhoton.CustomProperties["QUALIFIED"] || !(bool)playerPhoton.CustomProperties["ISPLAY"])
+        if ((bool)playerPhoton.CustomProperties["ISSPECTATE"])
         {
             gameUI.setSpectator();
-            Debug.Log("spectator");
+        }
+        else
+        {
+            if ((bool)playerPhoton.CustomProperties["QUALIFIED"])
+            {
+                if (playerPhoton.CustomProperties["SKIN"] != null)
+                {
+                    player.GetComponent<PlayerController>().setPlayerColor(ColorString.GetColorFromString((string)playerPhoton.CustomProperties["SKIN_HAIR"]),
+                                    ColorString.GetColorFromString((string)playerPhoton.CustomProperties["SKIN_HEAD"]),
+                                    ColorString.GetColorFromString((string)playerPhoton.CustomProperties["SKIN_BODY"]),
+                                    ColorString.GetColorFromString((string)playerPhoton.CustomProperties["SKIN_WEAPON"]));
+                }
+                PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setGameOver(true));
+            }
         }
     }
 

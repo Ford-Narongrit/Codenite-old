@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     [SerializeField] private PlayerModel player;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Text playerName;
+    [SerializeField] private Text timerText;
     [SerializeField] private GaugeBar healthBar;
     [SerializeField] private float respawnTime = 10f;
     [SerializeField] public float chargeToFireTime = 10f;
@@ -42,13 +43,13 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             if (Input.GetButton("Fire1"))
             {
                 currentChargeTime += Time.deltaTime;
-                if(currentChargeTime >= chargeToFireTime)
+                if (currentChargeTime >= chargeToFireTime)
                 {
                     player.attack();
                     currentChargeTime = 0f;
                 }
             }
-            if(Input.GetButtonUp("Fire1"))
+            if (Input.GetButtonUp("Fire1"))
             {
                 currentChargeTime = 0f;
             }
@@ -72,16 +73,17 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         if (player.isDead())
         {
+            timerText.gameObject.SetActive(true);
             player.setDead(true);
 
             currentRespawnTime += Time.deltaTime;
-            playerName.text = view.Owner.NickName + currentRespawnTime;
+            timerText.text = currentRespawnTime.ToString();
             if (currentRespawnTime >= respawnTime)
             {
-                if(view.IsMine)
-                    view.RPC("respawn",RpcTarget.All);
+                if (view.IsMine)
+                    view.RPC("respawn", RpcTarget.All);
+                timerText.gameObject.SetActive(false);
                 currentRespawnTime = 0f;
-                playerName.text = view.Owner.NickName;
             }
         }
 

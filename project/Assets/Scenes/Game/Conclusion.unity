@@ -666,9 +666,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameScene: Level1
-  waittingScene: StartMenu
+  startMenu: StartMenu
   nextSceneTime: 15
-  maxWinner: 0
+  maxWinner: 1
   timerText: {fileID: 659466149}
   contentview: {fileID: 167954799}
   leaderCell: {fileID: 1556316451775070284, guid: b9c0ded3e28ecba4b98d954f866f33c8, type: 3}
