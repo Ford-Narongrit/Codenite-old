@@ -491,7 +491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7214955710007402473
 Transform:
   m_ObjectHideFlags: 0
@@ -1189,10 +1189,13 @@ MonoBehaviour:
   playerName: {fileID: 8783116037540336890}
   healthBar: {fileID: 2089656657482732567}
   respawnTime: 10
+  chargeToFireTime: 10
   hair: {fileID: 2915281987000759697}
   head: {fileID: 6777512917228695972}
   body: {fileID: 68808248666992877}
   weapon: {fileID: 7864066936002234477}
+  currentChargeTime: 0
+  canAttack: 0
 --- !u!114 &552356775586455470
 MonoBehaviour:
   m_ObjectHideFlags: 0
