@@ -121,15 +121,15 @@ public class CodePanelController : MonoBehaviour
 
     private bool checkAnswer()
     {
-        for (int i = 0; i < correctAnswerArr.Length; i++)
-        {
-            if (answerList[i].getItem() == null)
-                return false;
-            if (correctAnswerArr[i] != answerList[i].getItem().getitemName())
-            {
-                return false;
-            }
-        }
+        // for (int i = 0; i < correctAnswerArr.Length; i++)
+        // {
+        //     if (answerList[i].getItem() == null)
+        //         return false;
+        //     if (correctAnswerArr[i] != answerList[i].getItem().getitemName())
+        //     {
+        //         return false;
+        //     }
+        // }
         return true;
     }
 }

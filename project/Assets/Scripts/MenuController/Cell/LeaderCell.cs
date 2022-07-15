@@ -7,9 +7,9 @@ public class LeaderCell : MonoBehaviour
     [SerializeField] private Text playerName;
     [SerializeField] private Text status;
 
-    public void setPlayerinfo(Player _player)
+    public void setPlayerinfo(string name, bool isGameOver)
     {
-        playerName.text = _player.NickName;
-        status.text = (bool)_player.CustomProperties["QUALIFIED"] + "";
+        playerName.text = name;
+        status.text = isGameOver + "";
     }
 }

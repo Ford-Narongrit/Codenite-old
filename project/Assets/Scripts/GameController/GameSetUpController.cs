@@ -54,6 +54,10 @@ public class GameSetUpController : MonoBehaviour
                 }
                 PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setGameOver(true));
             }
+            else
+            {
+                gameUI.setSpectator();
+            }
         }
     }
 

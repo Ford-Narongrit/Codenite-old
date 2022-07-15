@@ -32,7 +32,7 @@ public class ConclusionController : MonoBehaviourPunCallbacks
             {
                 GameObject leader = GameObject.Instantiate(leaderCell, contentview.transform);
                 LeaderCell cell = leader.GetComponent<LeaderCell>();
-                cell.setPlayerinfo(player.Value);
+                cell.setPlayerinfo(player.Value.NickName, !(bool)player.Value.CustomProperties["GAMEOVER"]);
 
                 if (!(bool)player.Value.CustomProperties["GAMEOVER"])
                 {
@@ -40,7 +40,7 @@ public class ConclusionController : MonoBehaviourPunCallbacks
                 }
                 if ((bool)player.Value.CustomProperties["GAMEOVER"])
                 {
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setQualified(false));
+                    player.Value.SetCustomProperties(MyCustomProperties.setQualified(false));
                 }
             }
         }
