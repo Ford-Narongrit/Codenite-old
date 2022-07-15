@@ -2,22 +2,22 @@
     "maps":
     [
         {
-            "problem": "test1",
-            "result": "test Res1",
-            "itemArr": ["count++", "count--", "count=1", "printf()","count<=10","true"],
-            "correntAnsArr": ["count++","true","count<=10"]
+            "problem": "public class Programming\n{\n\tpublic static void Main()\n\t{\n\t\tint [1];\n\t\t for ([2]; x <= 4; [3])\n\t\t{\n\t\t\tConsole.WriteLine(\"Value of x:\" + x);\n\t\t}\n\t}\n}",
+            "result": "Value of x:2\nValue of x:3\nValue of x:4",
+            "itemArr": ["x++", "void", "x=1", "x=2","x--","int"],
+            "correntAnsArr": ["void","x=2","x++"]
         },
         {
-            "problem": "test2",
-            "result": "test Res2",
-            "itemArr": ["count++", "count--", "count=1", "printf()","count<=100","true"],
-            "correntAnsArr": ["count++","true","count<=100"]
+            "problem": "using System;\npublic class Program\n{\n\tpublic static void Main()\n\t{\n\t\tint [1];\n\t\tdo{\n\t\t\tConsole.WriteLine(\"round: \"+count);\n\t\t\t[2];\n\t\t}while([3]);\n\t}\n}",
+            "result": "round: 1\nround: 2\nround: 3\nround: 4\nround: 5\nround: 6\nround: 7\nround: 8\nround: 9\nround: 10",
+            "itemArr": ["count++", "count--", "count=1", "count=0","count<=10","count>1"],
+            "correntAnsArr": ["count=1","count++","count<=10"]
         },
         {
-            "problem": "test3",
+            "problem": "using System;\npublic class Program\n{\n\tpublic static void Main()\n\t{\n\t\tfor(int r=8;[1];r--)\n\t\t{\n\t\t\tfor(int [2];c>=1;[3])\n\t\t\t{\n\t\t\t\tConsole.Write(\" \"+c);\n\t\t\t}\n\t\t\tConsole.WriteLine();\n\t\t}\n\t}\n}",
             "result": "test Res3",
-            "itemArr": ["count++", "count--", "count=1", "printf()","count<=10","false"],
-            "correntAnsArr": ["count--","false","count<=10"]
+            "itemArr": ["r>=1", "c=r", "c<=1", "r>1","c--","r--"],
+            "correntAnsArr": ["r>=1","c=r","c--"]
         }
     ]
 }
