@@ -46,7 +46,6 @@ public class ConnectToMaster : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("We are now connected to the " + PhotonNetwork.CloudRegion + " Photon Master Server!");
         SceneManager.LoadScene(nextSceneName);
     }
 }

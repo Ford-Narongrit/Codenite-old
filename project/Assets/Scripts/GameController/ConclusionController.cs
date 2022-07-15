@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using ExitGames.Client.Photon;
 
 public class ConclusionController : MonoBehaviourPunCallbacks
 {
@@ -24,6 +25,7 @@ public class ConclusionController : MonoBehaviourPunCallbacks
     private void Start()
     {
         currentTime = nextSceneTime;
+        loadNextLevel();
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
             if (!(bool)player.Value.CustomProperties["ISSPECTATE"])
@@ -79,20 +81,25 @@ public class ConclusionController : MonoBehaviourPunCallbacks
         }
     }
 
+    private void loadNextLevel()
+    {
+        Hashtable customRoomProperties = new ExitGames.Client.Photon.Hashtable();
+        customRoomProperties["PROBLEMINDEX"] = (int)PhotonNetwork.CurrentRoom.CustomProperties["PROBLEMINDEX"] + 1;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(customRoomProperties);
+    }
+
     private void startGame()
     {
         isLoading = true;
         if (!PhotonNetwork.IsMasterClient)
             return;
-        Debug.Log("Starting Game . . .");
+        Debug.Log("Starting Game . . . : " + (int)PhotonNetwork.CurrentRoom.CustomProperties["PROBLEMINDEX"]);
         PhotonNetwork.LoadLevel(gameScene);
     }
 
     private void backtoWaitRoom()
     {
         isLoading = true;
-        // if (!PhotonNetwork.IsMasterClient)
-        //     return;
         Debug.Log("back to waitting room . . .");
         PhotonNetwork.LeaveRoom();
     }

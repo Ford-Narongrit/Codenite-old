@@ -89,6 +89,7 @@ public class GameSetUpController : MonoBehaviour
 
     private void setCodeFragmentName()
     {
+        itemNameValue = JsonReader.getMapInfo().itemArr;
         for (int i = 0; i < itemNameText.Length; i++)
         {
             itemNameText[i].text = itemNameValue[i];

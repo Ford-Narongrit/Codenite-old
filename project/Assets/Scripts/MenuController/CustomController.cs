@@ -36,6 +36,7 @@ public class CustomController : MonoBehaviourPunCallbacks
         roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable();
         roomOptions.CustomRoomProperties["MODE"] = "SOLO";
         roomOptions.CustomRoomProperties["MEMBER"] = 1;
+        roomOptions.CustomRoomProperties["PROBLEMINDEX"] = 0;
         
         PhotonNetwork.JoinLobby(custom);
         joinInputField.characterLimit = RoomCodeLength;

@@ -1,0 +1,23 @@
+{
+    "maps":
+    [
+        {
+            "problem": "test1",
+            "result": "test Res1",
+            "itemArr": ["count++", "count--", "count=1", "printf()","count<=10","true"],
+            "correntAnsArr": ["count++","true","count<=10"]
+        },
+        {
+            "problem": "test2",
+            "result": "test Res2",
+            "itemArr": ["count++", "count--", "count=1", "printf()","count<=100","true"],
+            "correntAnsArr": ["count++","true","count<=100"]
+        },
+        {
+            "problem": "test3",
+            "result": "test Res3",
+            "itemArr": ["count++", "count--", "count=1", "printf()","count<=10","false"],
+            "correntAnsArr": ["count--","false","count<=10"]
+        }
+    ]
+}

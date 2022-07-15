@@ -38,7 +38,8 @@ public class GameUIController : MonoBehaviourPunCallbacks
             }
             if (Input.GetKeyDown(KeyCode.E))
             {
-                codePanel.SetActive(!codePanel.activeSelf);
+                //TODO fix bug if close codePanel it get error because can't find gameobject
+                // codePanel.SetActive(!codePanel.activeSelf);
             }
         }
         else

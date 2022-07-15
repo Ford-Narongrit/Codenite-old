@@ -9,6 +9,9 @@ public class CodePanelController : MonoBehaviour
     [Header("ItemList info")]
     [SerializeField] private int maxInventory = 5;
     [SerializeField] private int answerSlot = 3;
+    [Header("Text UI")]
+    [SerializeField] private Text problem;
+    [SerializeField] private Text result;
 
     [Header("ItemList UI")]
     [SerializeField] private GameObject answerSlotPrefab;
@@ -21,20 +24,28 @@ public class CodePanelController : MonoBehaviour
     private List<AnswerSlot> answerList = new List<AnswerSlot>();
     private List<ItemController> itemUI = new List<ItemController>();
     private List<string> itemList = new List<string>();
+    private string[] correctAnswerArr;
     private void Start()
     {
+        setProblemInfo();
         for (int i = 0; i < maxInventory; i++)
         {
             GameObject newSlot = Instantiate(inventoryBorderPrefab, inventoryTransform);
             inventorySlotList.Add(newSlot);
         }
 
-        for (int i = 0; i < answerSlot; i++)
+        for (int i = 0; i < correctAnswerArr.Length; i++)
         {
             GameObject newSlot = Instantiate(answerSlotPrefab, answerSlotTransform);
             newSlot.GetComponentInChildren<AnswerSlot>().setIndexText(i + 1);
             answerList.Add(newSlot.GetComponentInChildren<AnswerSlot>());
         }
+    }
+    public void setProblemInfo()
+    {
+        problem.text = JsonReader.getMapInfo().problem;
+        result.text = JsonReader.getMapInfo().result;
+        correctAnswerArr = JsonReader.getMapInfo().correntAnsArr;
     }
 
     public void pickItem(string itemName)
@@ -66,6 +77,10 @@ public class CodePanelController : MonoBehaviour
     }
 
     public void OnClickReset()
+    {
+        resetItemToSlot();
+    }
+    private void resetItemToSlot()
     {
         foreach (ItemController item in itemUI)
         {
@@ -99,18 +114,21 @@ public class CodePanelController : MonoBehaviour
         }
         else
         {
-            // error alert
+            resetItemToSlot();
         }
 
     }
 
     private bool checkAnswer()
     {
-        //TODO add condition to submit
-        foreach (AnswerSlot slot in answerList)
+        for (int i = 0; i < correctAnswerArr.Length; i++)
         {
-            if (slot.getItem() != null)
-                Debug.Log(slot.getItem().getitemName());
+            if (answerList[i].getItem() == null)
+                return false;
+            if (correctAnswerArr[i] != answerList[i].getItem().getitemName())
+            {
+                return false;
+            }
         }
         return true;
     }
