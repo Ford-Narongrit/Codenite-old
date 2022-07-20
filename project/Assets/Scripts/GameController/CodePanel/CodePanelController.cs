@@ -110,11 +110,18 @@ public class CodePanelController : MonoBehaviour
         if (checkAnswer())
         {
             PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setGameOver(false));
-            gameUIController.setSpectator();
+            AlertController.Instance.showAlert("CONGRATULATIONS!\nMISSION COMPLETE", "Please wait of other players finish the mission.", "Spectating", () =>
+                {
+                    gameUIController.setSpectator();
+                });
+
         }
         else
         {
-            resetItemToSlot();
+            AlertController.Instance.showAlert("Error", "Please try again.", "close and reset", () =>
+                {
+                    resetItemToSlot();
+                });
         }
 
     }
