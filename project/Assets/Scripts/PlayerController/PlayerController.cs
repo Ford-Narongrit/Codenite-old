@@ -40,19 +40,19 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
             mousePos = playerCamera.ScreenToWorldPoint(Input.mousePosition);
-            if (Input.GetButton("Fire1"))
-            {
-                currentChargeTime += Time.deltaTime;
-                if (currentChargeTime >= chargeToFireTime)
-                {
-                    player.attack();
-                    currentChargeTime = 0f;
-                }
-            }
-            if (Input.GetButtonUp("Fire1"))
-            {
-                currentChargeTime = 0f;
-            }
+            // if (Input.GetButton("Fire1"))
+            // {
+            //     currentChargeTime += Time.deltaTime;
+            //     if (currentChargeTime >= chargeToFireTime)
+            //     {
+            //         player.attack();
+            //         currentChargeTime = 0f;
+            //     }
+            // }
+            // if (Input.GetButtonUp("Fire1"))
+            // {
+            //     currentChargeTime = 0f;
+            // }
         }
     }
 
@@ -73,20 +73,35 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         if (player.isDead())
         {
-            timerText.gameObject.SetActive(true);
+            // timerText.gameObject.SetActive(true);
             player.setDead(true);
 
             currentRespawnTime += Time.deltaTime;
-            timerText.text = currentRespawnTime.ToString();
+            // timerText.text = currentRespawnTime.ToString();
             if (currentRespawnTime >= respawnTime)
             {
                 if (view.IsMine)
                     view.RPC("respawn", RpcTarget.All);
-                timerText.gameObject.SetActive(false);
+                // timerText.gameObject.SetActive(false);
                 currentRespawnTime = 0f;
             }
         }
 
+    }
+
+    public void shoot(int cr)
+    {
+        if (view.IsMine)
+        {
+            if (cr == 1)
+            {
+                player.attack();
+            }
+        }
+    }
+    public void smiling(int _value)
+    {
+        currentChargeTime = _value;
     }
 
     public void setCamera(Camera camera)
