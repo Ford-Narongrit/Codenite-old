@@ -2,19 +2,19 @@
     "maps":
     [
         {
-            "problem": "public class Programming\n{\n\tpublic static void Main()\n\t{\n\t\t[1] x;\n\t\t for ([2]; x <= 4; [3])\n\t\t{\n\t\t\tConsole.WriteLine(\"Value of x:\" + x);\n\t\t}\n\t}\n}",
+            "problem": "public class Programming\n{\n\tpublic static void Main()\n\t{\n\t\t<color=red>[1]</color> x;\n\t\t for (<color=red>[2]</color>; x <= 4; <color=red>[3]</color>)\n\t\t{\n\t\t\tConsole.WriteLine(\"Value of x:\" + x);\n\t\t}\n\t}\n}",
             "result": "Value of x:2\nValue of x:3\nValue of x:4",
             "itemArr": ["x++", "void", "x=1", "x=2","x--","int"],
             "correntAnsArr": ["int","x=2","x++"]
         },
         {
-            "problem": "using System;\npublic class Program\n{\n\tpublic static void Main()\n\t{\n\t\tint [1];\n\t\tdo{\n\t\t\tConsole.WriteLine(\"round: \"+count);\n\t\t\t[2];\n\t\t}while([3]);\n\t}\n}",
+            "problem": "using System;\npublic class Program\n{\n\tpublic static void Main()\n\t{\n\t\tint <color=red>[1]</color>;\n\t\tdo{\n\t\t\tConsole.WriteLine(\"round: \"+count);\n\t\t\t<color=red>[2]</color>;\n\t\t}while(<color=red>[3]</color>);\n\t}\n}",
             "result": "round: 1\nround: 2\nround: 3\nround: 4\nround: 5\nround: 6\nround: 7\nround: 8\nround: 9\nround: 10",
             "itemArr": ["count++", "count--", "count=1", "count=0","count<=10","count>1"],
             "correntAnsArr": ["count=1","count++","count<=10"]
         },
         {
-            "problem": "using System;\npublic class Program\n{\n\tpublic static void Main()\n\t{\n\t\tfor(int r=8;[1];r--)\n\t\t{\n\t\t\tfor(int [2];c>=1;[3])\n\t\t\t{\n\t\t\t\tConsole.Write(\" \"+c);\n\t\t\t}\n\t\t\tConsole.WriteLine();\n\t\t}\n\t}\n}",
+            "problem": "using System;\npublic class Program\n{\n\tpublic static void Main()\n\t{\n\t\tfor(int r=8;<color=red>[1]</color>;r--)\n\t\t{\n\t\t\tfor(int <color=red>[2]</color>;c>=1;<color=red>[3]</color>)\n\t\t\t{\n\t\t\t\tConsole.Write(\" \"+c);\n\t\t\t}\n\t\t\tConsole.WriteLine();\n\t\t}\n\t}\n}",
             "result": "8 7 6 5 4 3 2 1\n7 6 5 4 3 2 1\n6 5 4 3 2 1\n5 4 3 2 1\n4 3 2 1\n3 2 1\n2 1\n1",
             "itemArr": ["r>=1", "c=r", "c<=1", "r>1","c--","r--"],
             "correntAnsArr": ["r>=1","c=r","c--"]
