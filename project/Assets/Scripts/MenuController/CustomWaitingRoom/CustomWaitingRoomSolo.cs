@@ -19,6 +19,7 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
     [SerializeField] private Transform spectatorContent;
     [SerializeField] private Transform playerContent;
     private List<PlayerCell> playerList = new List<PlayerCell>();
+    private List<Player> readyPlayerList = new List<Player>();
     private string mode;
     private int member;
 
@@ -81,6 +82,9 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
     private void updateAllPlayerList()
     {
         updateList(spectatorContent, playerContent);
+
+        if(PhotonNetwork.IsMasterClient)
+            startBtn.GetComponent<Button>().interactable = readyPlayerList.Count > 0;
     }
     private void updateList(Transform spectatorTarget, Transform playerTarget)
     {
@@ -89,6 +93,7 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
             Destroy(player.gameObject);
         }
         playerList.Clear();
+        readyPlayerList.Clear();
 
         if (PhotonNetwork.CurrentRoom == null)
         {
@@ -104,6 +109,7 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
                     PlayerCell newPlayer = Instantiate(playerCellPrefab, playerTarget);
                     newPlayer.setPlayerName(player.Value);
                     playerList.Add(newPlayer);
+                    readyPlayerList.Add(player.Value);
                 }
                 if ((bool)player.Value.CustomProperties["ISSPECTATE"])
                 {

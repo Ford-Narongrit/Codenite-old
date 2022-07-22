@@ -21,6 +21,7 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
     [SerializeField] private Transform teamsContent;
 
     private List<PlayerCell> playerList = new List<PlayerCell>();
+    private List<Player> readyPlayerList = new List<Player>();
     private string mode;
     private int member;
     void Start()
@@ -88,11 +89,26 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
     // ******** private ********
     private void updatePlayerList()
     {
+        updatePlayer();
+
+        if (PhotonNetwork.IsMasterClient)
+            startBtn.GetComponent<Button>().interactable = readyPlayerList.Count > 0;
+    }
+
+    private void updatePlayer()
+    {
+        if (PhotonNetwork.CurrentRoom == null)
+        {
+            return;
+        }
+
         foreach (PlayerCell player in playerList)
         {
             Destroy(player.gameObject);
         }
+        readyPlayerList.Clear();
         playerList.Clear();
+
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
             if (player.Value.CustomProperties.ContainsKey("ISSPECTATE"))
@@ -102,6 +118,10 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
                     PlayerCell newPlayer = Instantiate(playerCellPrefab, spectatorContent);
                     newPlayer.setPlayerName(player.Value);
                     playerList.Add(newPlayer);
+                }
+                if (!(bool)player.Value.CustomProperties["ISSPECTATE"])
+                {
+                    readyPlayerList.Add(player.Value);
                 }
             }
         }
