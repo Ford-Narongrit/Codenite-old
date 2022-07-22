@@ -4,6 +4,7 @@ using Photon.Pun;
 
 public class PlayerController : MonoBehaviourPun, IPunObservable
 {
+    public bool isUseSmiling = false;
     [Header("Player Object")]
     [SerializeField] private PlayerModel player;
     [SerializeField] private Camera playerCamera;
@@ -40,19 +41,19 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
             mousePos = playerCamera.ScreenToWorldPoint(Input.mousePosition);
-            // if (Input.GetButton("Fire1"))
-            // {
-            //     currentChargeTime += Time.deltaTime;
-            //     if (currentChargeTime >= chargeToFireTime)
-            //     {
-            //         player.attack();
-            //         currentChargeTime = 0f;
-            //     }
-            // }
-            // if (Input.GetButtonUp("Fire1"))
-            // {
-            //     currentChargeTime = 0f;
-            // }
+            if (Input.GetButton("Fire1") && !isUseSmiling)
+            {
+                currentChargeTime += Time.deltaTime;
+                if (currentChargeTime >= chargeToFireTime)
+                {
+                    player.attack();
+                    currentChargeTime = 0f;
+                }
+            }
+            if (Input.GetButtonUp("Fire1") && !isUseSmiling)
+            {
+                currentChargeTime = 0f;
+            }
         }
     }
 
@@ -93,7 +94,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         if (view.IsMine)
         {
-            if (cr == 1)
+            if (cr == 1 && !player.isDead())
             {
                 player.attack();
             }
