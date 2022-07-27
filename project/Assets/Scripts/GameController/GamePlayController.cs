@@ -16,7 +16,7 @@ public class GamePlayController : MonoBehaviourPunCallbacks
     [Header("Rule")]
     [SerializeField] private float gameTime;
     [SerializeField] private float quotaPercent;
-    [SerializeField] private float minPlayerToFindWinner;
+    [SerializeField] private int minPlayerToFindWinner;
 
     private int quota = 1;
     private int qualifiedPlayer;
@@ -26,9 +26,14 @@ public class GamePlayController : MonoBehaviourPunCallbacks
     private void Start()
     {
         myPhotonView = GetComponent<PhotonView>();
-        if (qualifiedPlayerInPreLv() > minPlayerToFindWinner)
+        int _qualifiedPlayer = qualifiedPlayerInPreLv();
+        if (_qualifiedPlayer > minPlayerToFindWinner)
         {
-            quota = (int)Mathf.Ceil(qualifiedPlayerInPreLv() * (quotaPercent / 100));
+            quota = (int)Mathf.Ceil(_qualifiedPlayer * (quotaPercent / 100));
+        }
+        else
+        {
+            quota = minPlayerToFindWinner;
         }
         currentTime = gameTime;
     }

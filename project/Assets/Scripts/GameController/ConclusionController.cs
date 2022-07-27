@@ -19,7 +19,7 @@ public class ConclusionController : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject contentview;
     [SerializeField] private GameObject leaderCell;
     private float currentTime;
-    private int currentplayers;
+    private int currentplayers = 0;
     private bool isLoading = false;
     private bool isHaveWinner = false;
     private void Start()
