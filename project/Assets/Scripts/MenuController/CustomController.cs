@@ -37,40 +37,49 @@ public class CustomController : MonoBehaviourPunCallbacks
         roomOptions.CustomRoomProperties["MODE"] = "SOLO";
         roomOptions.CustomRoomProperties["MEMBER"] = 1;
         roomOptions.CustomRoomProperties["PROBLEMINDEX"] = 0;
-        
+
         PhotonNetwork.JoinLobby(custom);
         joinInputField.characterLimit = RoomCodeLength;
 
-        for(int i = 0; i < modeBtn.Length; i++)
+        for (int i = 0; i < modeBtn.Length; i++)
         {
             modeBtn[i].GetComponent<Image>().color = Color.gray;
-        } 
+        }
         modeBtn[0].GetComponent<Image>().color = Color.green;
     }
-    private void Update() 
+    private void Update()
     {
-        if(joinInputField.text.Length == RoomCodeLength)
+        if (joinInputField.text.Length == RoomCodeLength)
         {
             joinBtn.interactable = true;
         }
     }
 
+    // ******** OnChange *******
+    public void OnChangeInputJoin()
+    {
+        joinInputField.text = joinInputField.text.ToUpper();
+    }
+
     // ******** OnClick ********
     public void OnClickMode(GameObject btn)
     {
-        for(int i = 0; i < modeBtn.Length; i++)
+        for (int i = 0; i < modeBtn.Length; i++)
         {
-            if(btn.Equals(modeBtn[i]))
+            if (btn.Equals(modeBtn[i]))
             {
                 modeBtn[i].GetComponent<Image>().color = Color.green;
-                roomOptions.CustomRoomProperties["MODE"] = btn.GetComponentInChildren<Text>().text;
-                mode = btn.GetComponentInChildren<Text>().text;
             }
             else
             {
                 modeBtn[i].GetComponent<Image>().color = Color.gray;
             }
         }
+    }
+    public void OnClickMode(string _mode)
+    {
+        roomOptions.CustomRoomProperties["MODE"] = _mode;
+        mode = _mode;
     }
     public void OnClickMode(int playerInTeam)
     {
@@ -79,7 +88,7 @@ public class CustomController : MonoBehaviourPunCallbacks
     public void OnClickCreate()
     {
         CreateRoom();
-    }    
+    }
     public void OnClickJoinWithRoomCell(string roomCode)
     {
         PhotonNetwork.JoinRoom(roomCode);
@@ -106,7 +115,7 @@ public class CustomController : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        if(mode == "SOLO")
+        if (mode == "SOLO")
         {
             SceneManager.LoadScene(customWaitingRoomSolo);
         }
@@ -116,9 +125,18 @@ public class CustomController : MonoBehaviourPunCallbacks
         }
     }
 
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        base.OnJoinRoomFailed(returnCode, message);
+        AlertController.Instance.showAlert("", "Can not find room.", "close", () =>
+                {
+                    joinInputField.text = "";
+                });
+    }
+
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        if(Time.time >= nextUpdateTime)
+        if (Time.time >= nextUpdateTime)
         {
             UpdateRoomList(roomList);
             nextUpdateTime = Time.time + timeBetweenUpdates;
@@ -132,7 +150,7 @@ public class CustomController : MonoBehaviourPunCallbacks
 
         string randomRoomNumber = RandomRoomCode(RoomCodeLength);
         PhotonNetwork.CreateRoom(randomRoomNumber, roomOptions);
-        Debug.Log("room code is " + randomRoomNumber); 
+        Debug.Log("room code is " + randomRoomNumber);
     }
 
     private string RandomRoomCode(int range)
@@ -140,7 +158,7 @@ public class CustomController : MonoBehaviourPunCallbacks
         string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         string roomCode = "";
 
-        for(int i = 0; i < range; i++)
+        for (int i = 0; i < range; i++)
         {
             roomCode += characters[Random.Range(0, characters.Length)];
         }
