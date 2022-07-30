@@ -15,6 +15,14 @@ public class MyCustomProperties
         return properties;
     }
 
+    public static Hashtable setColor(string part, Color _color)
+    {
+        Hashtable properties = new Hashtable();
+        properties["SKIN"] = true;
+        properties[part] = ColorString.GetStringFromColor(_color);
+        return properties;
+    }
+
     public static Hashtable setInfoProperties(bool isSpectate, string teamName)
     {
         Hashtable properties = new Hashtable();

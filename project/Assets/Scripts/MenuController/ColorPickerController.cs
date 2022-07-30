@@ -10,53 +10,43 @@ public class ColorPickerController : MonoBehaviour
 
     [Header("info")]
     [SerializeField] private Color32[] colorList;
-    [Header("character")]
-    [SerializeField] private SpriteRenderer hair;
-    [SerializeField] private SpriteRenderer head;
-    [SerializeField] private SpriteRenderer body;
-    [SerializeField] private SpriteRenderer weapon;
 
-    void Start()
+    [Header("character")]
+    [SerializeField] private string ColorPropertiesKey;
+    [SerializeField] private SpriteRenderer characterPart;
+
+
+    void init()
     {
         foreach (var color in colorList)
         {
             GameObject colorPicker = GameObject.Instantiate(colorPickerPrefab, colorPickerContrainer);
             ColorCell colorCell = colorPicker.GetComponentInChildren<ColorCell>();
             colorCell.setCover(color);
-            colorCell.setInfo(color, color, color, color);
 
             colorPicker.GetComponentInChildren<Button>().onClick.AddListener(delegate { OnClickColorCell(colorCell); });
         }
-        Player player = PhotonNetwork.LocalPlayer;
-        if (player.CustomProperties["SKIN"] != null)
-        {
-            setPlayerColor(ColorString.GetColorFromString((string)player.CustomProperties["SKIN_HAIR"]),
-                            ColorString.GetColorFromString((string)player.CustomProperties["SKIN_HEAD"]),
-                            ColorString.GetColorFromString((string)player.CustomProperties["SKIN_BODY"]),
-                            ColorString.GetColorFromString((string)player.CustomProperties["SKIN_WEAPON"]));
-        }
+    }
+
+    void Start()
+    {
+        init();
     }
 
     public void OnClickColorCell(ColorCell _colorCell)
     {
-        setPlayerColor(_colorCell.hair, _colorCell.head, _colorCell.body, _colorCell.weapon);
-        setPhotonPlayerColor(_colorCell.hair,
-                        _colorCell.head,
-                        _colorCell.body,
-                        _colorCell.weapon);
+        setPlayerColor(_colorCell.cover);
+        setPhotonPlayerColor(_colorCell.cover);
     }
 
-    public void setPlayerColor(Color _hair, Color _head, Color _body, Color _weapon)
+    public void setPlayerColor(Color _color)
     {
-        hair.color = _hair;
-        head.color = _head;
-        body.color = _body;
-        weapon.color = _weapon;
+        characterPart.color = _color;
     }
 
-    public void setPhotonPlayerColor(Color _hair, Color _head, Color _body, Color _weapon)
+    public void setPhotonPlayerColor(Color _color)
     {
         Player player = PhotonNetwork.LocalPlayer;
-        player.SetCustomProperties(MyCustomProperties.setColorProperties(_hair, _head, _body, _weapon));
+        player.SetCustomProperties(MyCustomProperties.setColor(ColorPropertiesKey, _color));
     }
 }
