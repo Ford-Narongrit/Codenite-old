@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
     {
         if (view.IsMine)
         {
-            if (other.gameObject.tag == "Monster")
+            if (other.gameObject.tag == "Monster" && this.tag != other.gameObject.tag)
             {
                 other.gameObject.GetComponent<PhotonView>().RPC("takeDamage", RpcTarget.All, bulletDamage);
                 if (other.gameObject.GetComponent<MonsterModel>().Isdead())
@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour
                 }
                 Destroy(gameObject);
             }
-            else if (other.gameObject.tag == "Player")
+            else if (other.gameObject.tag == "Player" && this.tag != other.gameObject.tag)
             {
                 other.gameObject.GetComponent<PhotonView>().RPC("takeDamage", RpcTarget.All, bulletDamage);
                 Destroy(gameObject);
@@ -51,27 +51,5 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-
-        // private void OnTriggerEnter2D(Collider2D other)
-        // {
-        //     if (view.IsMine)
-        //     {
-        //         if (other.gameObject.tag == "Monster")
-        //         {
-        //             other.GetComponent<PhotonView>().RPC("takeDamage", RpcTarget.All, bulletDamage);
-        //             if (other.GetComponent<MonsterModel>().Isdead())
-        //             {
-        //                 PlayerModel player = PhotonView.Find(ownerViewID).GetComponent<PlayerModel>();
-        //                 GameObject.FindWithTag("CodePanel").GetComponent<CodePanelController>().pickItem(other.GetComponent<MonsterModel>().dropItem());
-        //                 player.goSpawnPoint();
-        //             }
-        //         }
-        //         else if (other.gameObject.tag == "Player")
-        //         {
-        //             other.GetComponent<PhotonView>().RPC("takeDamage", RpcTarget.All, bulletDamage);
-        //         }
-        //     }
-        //     Destroy(gameObject);
-        // }
     }
 }
