@@ -14,6 +14,7 @@ public class CodePanelController : MonoBehaviour
     [SerializeField] private Text result;
 
     [Header("ItemList UI")]
+    [SerializeField] private Canvas canvas;
     [SerializeField] private GameObject answerSlotPrefab;
     [SerializeField] private GameObject inventoryBorderPrefab;
     [SerializeField] private GameObject itemPrefab;
@@ -56,6 +57,7 @@ public class CodePanelController : MonoBehaviour
             {
                 GameObject newItemObject = Instantiate(itemPrefab, inventorySlotList[getEmpty()].transform);
                 newItemObject.GetComponent<ItemController>().setItemName(itemName);
+                newItemObject.GetComponent<ItemController>().setCanvas(canvas);
 
                 itemList.Add(itemName);
                 itemUI.Add(newItemObject.GetComponent<ItemController>());

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 796591946602083622}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Monster
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,6 +149,7 @@ MonoBehaviour:
   destroyTime: 0.5
   moveSpeed: 20
   bulletDir: {x: 0, y: -1}
+  ally: Monster
 --- !u!114 &796591946602083622
 MonoBehaviour:
   m_ObjectHideFlags: 0

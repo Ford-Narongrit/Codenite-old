@@ -32,7 +32,7 @@ public class ConclusionController : MonoBehaviourPunCallbacks
             {
                 GameObject leader = GameObject.Instantiate(leaderCell, contentview.transform);
                 LeaderCell cell = leader.GetComponent<LeaderCell>();
-                cell.setPlayerinfo(player.Value.NickName, !(bool)player.Value.CustomProperties["GAMEOVER"]);
+                cell.setPlayerinfo(player.Value.NickName, (bool)player.Value.CustomProperties["GAMEOVER"]);
 
                 if (!(bool)player.Value.CustomProperties["GAMEOVER"])
                 {

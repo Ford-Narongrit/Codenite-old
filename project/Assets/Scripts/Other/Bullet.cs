@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float destroyTime;
     [SerializeField] private float moveSpeed;
     [SerializeField] private Vector2 bulletDir;
+    [SerializeField] private string ally;
     private PhotonView view;
     private int ownerViewID;
     void Awake()
@@ -29,7 +30,11 @@ public class Bullet : MonoBehaviour
     {
         if (view.IsMine)
         {
-            if (other.gameObject.tag == "Monster" && this.tag != other.gameObject.tag)
+            if(ally == other.gameObject.tag)
+            {
+                Destroy(gameObject);
+            }
+            if (other.gameObject.tag == "Monster")
             {
                 other.gameObject.GetComponent<PhotonView>().RPC("takeDamage", RpcTarget.All, bulletDamage);
                 if (other.gameObject.GetComponent<MonsterModel>().Isdead())
@@ -40,7 +45,7 @@ public class Bullet : MonoBehaviour
                 }
                 Destroy(gameObject);
             }
-            else if (other.gameObject.tag == "Player" && this.tag != other.gameObject.tag)
+            else if (other.gameObject.tag == "Player")
             {
                 other.gameObject.GetComponent<PhotonView>().RPC("takeDamage", RpcTarget.All, bulletDamage);
                 Destroy(gameObject);

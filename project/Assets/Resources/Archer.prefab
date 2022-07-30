@@ -1110,7 +1110,7 @@ MonoBehaviour:
   timerText: {fileID: 9189038105211335119}
   healthBar: {fileID: 2089656657482732567}
   respawnTime: 10
-  chargeToFireTime: 3
+  chargeToFireTime: 2
   hair: {fileID: 2915281987000759697}
   head: {fileID: 6777512917228695972}
   body: {fileID: 68808248666992877}

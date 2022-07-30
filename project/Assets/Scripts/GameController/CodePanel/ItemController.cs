@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 
 public class ItemController : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+    [SerializeField] private Canvas canvas;
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
     private Vector2 startLocalPosition;
@@ -29,7 +30,7 @@ public class ItemController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     }
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta;
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -60,6 +61,10 @@ public class ItemController : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     public void setItemName(string itemName)
     {
         itemNameText.text = itemName;
+    }
+    public void setCanvas(Canvas _canvas)
+    {
+        canvas = _canvas;
     }
 
     public string getitemName()
