@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     private float currentRespawnTime = 0f;
     public float currentChargeTime = 0f;
     public bool canAttack;
+    public bool isHold = false;
 
     private void Start()
     {
@@ -41,9 +42,13 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
             mousePos = playerCamera.ScreenToWorldPoint(Input.mousePosition);
-            if (Input.GetKey(KeyCode.Space) && !isUseSmiling)
+            if (Input.GetKey(KeyCode.Space))
             {
-                player.slow(20);
+                if (!isHold)
+                {
+                    player.slow(0.2f);
+                    isHold = true;
+                }
                 if (!isUseSmiling)
                 {
                     currentChargeTime += Time.deltaTime;
@@ -54,9 +59,10 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                     }
                 }
             }
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKeyUp(KeyCode.Space))
             {
                 player.resetSpeed();
+                isHold = false;
                 if (!isUseSmiling)
                 {
                     currentChargeTime = 0f;
