@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class AnswerSlot : MonoBehaviour, IDropHandler
 {
     [SerializeField] private Text answerIndexText;
+    [SerializeField] private Image answerImage;
     private ItemController keepedItem;
     private int answerIndex;
     private void LateUpdate()
@@ -27,6 +28,10 @@ public class AnswerSlot : MonoBehaviour, IDropHandler
     public ItemController getItem()
     {
         return keepedItem;
+    }
+    public void showAnswer(string _ans)
+    {
+        answerIndexText.text = answerIndexText.text + " " + _ans;
     }
     public void OnDrop(PointerEventData eventData)
     {

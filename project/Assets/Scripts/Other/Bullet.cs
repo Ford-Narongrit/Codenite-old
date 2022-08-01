@@ -33,6 +33,7 @@ public class Bullet : MonoBehaviour
             if(ally == other.gameObject.tag)
             {
                 Destroy(gameObject);
+                return;
             }
             if (other.gameObject.tag == "Monster")
             {

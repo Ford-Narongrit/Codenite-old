@@ -42,6 +42,7 @@ public class CodePanelController : MonoBehaviour
             answerList.Add(newSlot.GetComponentInChildren<AnswerSlot>());
         }
     }
+
     public void setProblemInfo()
     {
         problem.text = JsonReader.getMapInfo().problem;
@@ -64,6 +65,7 @@ public class CodePanelController : MonoBehaviour
 
                 newItemObject.GetComponentInChildren<Button>().onClick.AddListener(delegate { OnClickDelete(newItemObject); });
             }
+            udpateSlot();
         }
     }
     private int getEmpty()
@@ -76,6 +78,28 @@ public class CodePanelController : MonoBehaviour
             }
         }
         return 0;
+    }
+    public void showHint()
+    {
+        for (int i = 0; i < correctAnswerArr.Length; i++)
+        {
+            answerList[i].showAnswer(correctAnswerArr[i]);
+        }
+    }
+
+    private void udpateSlot()
+    {
+        for (int i = 0; i < maxInventory; i++)
+        {
+            if (inventorySlotList[i].GetComponentInChildren<ItemController>() != null)
+            {
+                inventorySlotList[i].GetComponent<Image>().color = Color.red;
+            }
+            else
+            {
+                inventorySlotList[i].GetComponent<Image>().color = Color.white;
+            }
+        }
     }
 
     public void OnClickReset()
@@ -105,6 +129,7 @@ public class CodePanelController : MonoBehaviour
                 // Do nothing
             }
         );
+        udpateSlot();
     }
 
     public void OnClickSubmit()

@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             if (Input.GetButton("Fire1") && !isUseSmiling)
             {
                 currentChargeTime += Time.deltaTime;
-                Debug.Log(currentChargeTime);
                 if (currentChargeTime >= chargeToFireTime)
                 {
                     player.attack();

@@ -14,14 +14,18 @@ public class GamePlayController : MonoBehaviourPunCallbacks
     [Header("Scene")]
     [SerializeField] private string conclusionScene;
     [Header("Rule")]
-    [SerializeField] private float gameTime;
+    [SerializeField] private float gameTime = 300;
+    [SerializeField] private float hintTime = 200;
     [SerializeField] private float quotaPercent;
     [SerializeField] private int minPlayerToFindWinner;
+
+    [SerializeField] private CodePanelController codePanelController;
 
     private int quota = 1;
     private int qualifiedPlayer;
     private float currentTime;
     private bool gameOver = false;
+    private bool isShowHint = false;
 
     private void Start()
     {
@@ -51,19 +55,27 @@ public class GamePlayController : MonoBehaviourPunCallbacks
     {
         quotaText.text = qualifiedPlayer + " / " + quota;
     }
-
     private void countDown()
     {
         currentTime -= Time.deltaTime;
         TimeSpan timeSpan = TimeSpan.FromSeconds(currentTime);
         string tempTimer = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
         timer.text = tempTimer;
+        if (!isShowHint && currentTime <= gameTime - hintTime)
+        {
+            showHint();
+        }
         if (currentTime <= 0f)
         {
             if (gameOver)
                 return;
             finishGame();
         }
+    }
+    private void showHint()
+    {
+        codePanelController.showHint();
+        isShowHint = true;
     }
 
     private void finishGame()
