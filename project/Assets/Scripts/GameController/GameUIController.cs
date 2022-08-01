@@ -47,6 +47,7 @@ public class GameUIController : MonoBehaviourPunCallbacks
         else
         {
             howtoSpectate.SetActive(true);
+            howtoShoot.SetActive(false);
             if (Input.GetKeyDown(KeyCode.E))
             {
                 cameraLookAt(getPlayerToSpectatate(1));
