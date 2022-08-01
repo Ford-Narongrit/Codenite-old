@@ -41,18 +41,26 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
             mousePos = playerCamera.ScreenToWorldPoint(Input.mousePosition);
-            if (Input.GetButton("Fire1") && !isUseSmiling)
+            if (Input.GetKey(KeyCode.Space) && !isUseSmiling)
             {
-                currentChargeTime += Time.deltaTime;
-                if (currentChargeTime >= chargeToFireTime)
+                player.slow(20);
+                if (!isUseSmiling)
                 {
-                    player.attack();
-                    currentChargeTime = 0f;
+                    currentChargeTime += Time.deltaTime;
+                    if (currentChargeTime >= chargeToFireTime)
+                    {
+                        player.attack();
+                        currentChargeTime = 0f;
+                    }
                 }
             }
-            if (Input.GetButtonUp("Fire1") && !isUseSmiling)
+            if (Input.GetKey(KeyCode.Space))
             {
-                currentChargeTime = 0f;
+                player.resetSpeed();
+                if (!isUseSmiling)
+                {
+                    currentChargeTime = 0f;
+                }
             }
         }
     }

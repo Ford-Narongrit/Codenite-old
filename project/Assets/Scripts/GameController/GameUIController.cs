@@ -19,6 +19,8 @@ public class GameUIController : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject worldMap;
     [SerializeField] private GameObject menu;
     [SerializeField] private GameObject codePanel;
+    [SerializeField] private GameObject howtoShoot;
+    [SerializeField] private GameObject howtoSpectate;
 
     private GameObject player;
 
@@ -44,6 +46,7 @@ public class GameUIController : MonoBehaviourPunCallbacks
         }
         else
         {
+            howtoSpectate.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
                 cameraLookAt(getPlayerToSpectatate(1));
