@@ -31,7 +31,7 @@ public class AnswerSlot : MonoBehaviour, IDropHandler
     }
     public void showAnswer(string _ans)
     {
-        answerIndexText.text = answerIndexText.text + " <color=gray>" + _ans + "</color=gray>";
+        answerIndexText.text = answerIndexText.text + " <color=#00000050>" + _ans + "</color>";
     }
     public void OnDrop(PointerEventData eventData)
     {

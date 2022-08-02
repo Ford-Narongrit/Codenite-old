@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             {
                 if (!isHold)
                 {
-                    player.slow(0.2f);
+                    // player.slow(0.2f);
                     isHold = true;
                 }
                 if (!isUseSmiling)
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             }
             if (Input.GetKeyUp(KeyCode.Space))
             {
-                player.resetSpeed();
+                // player.resetSpeed();
                 isHold = false;
                 if (!isUseSmiling)
                 {

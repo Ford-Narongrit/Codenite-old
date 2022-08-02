@@ -42,6 +42,10 @@ public class CodePanelController : MonoBehaviour
             answerList.Add(newSlot.GetComponentInChildren<AnswerSlot>());
         }
     }
+    private void LateUpdate()
+    {
+        udpateSlot();
+    }
 
     public void setProblemInfo()
     {
@@ -65,7 +69,6 @@ public class CodePanelController : MonoBehaviour
 
                 newItemObject.GetComponentInChildren<Button>().onClick.AddListener(delegate { OnClickDelete(newItemObject); });
             }
-            udpateSlot();
         }
     }
     private int getEmpty()
@@ -129,7 +132,6 @@ public class CodePanelController : MonoBehaviour
                 // Do nothing
             }
         );
-        udpateSlot();
     }
 
     public void OnClickSubmit()
@@ -145,7 +147,7 @@ public class CodePanelController : MonoBehaviour
         }
         else
         {
-            AlertController.Instance.showAlert("Error", "Please try again.", "close and reset", () =>
+            AlertController.Instance.showAlert("Error", "Oops! the answer is not correct. Please click 'Reset' button and try again.", "Reset", () =>
                 {
                     resetItemToSlot();
                 });
