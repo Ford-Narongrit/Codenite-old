@@ -35,6 +35,7 @@ public class CustomController : MonoBehaviourPunCallbacks
         //roomOption setup
         roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable();
         roomOptions.CustomRoomProperties["MODE"] = "SOLO";
+        roomOptions.CustomRoomProperties["PVP"] = false;
         roomOptions.CustomRoomProperties["MEMBER"] = 1;
         roomOptions.CustomRoomProperties["PROBLEMINDEX"] = 0;
 
@@ -128,10 +129,11 @@ public class CustomController : MonoBehaviourPunCallbacks
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         base.OnJoinRoomFailed(returnCode, message);
-        AlertController.Instance.showAlert("", "Can not find room.", "close", () =>
+        AlertController.Instance.showAlert("", "Could not find the game you're looking for.", "close", () =>
                 {
                     joinInputField.text = "";
                 });
+        PhotonNetwork.JoinLobby(custom);
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)

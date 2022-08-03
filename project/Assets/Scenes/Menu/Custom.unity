@@ -1301,7 +1301,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9146633607569942537, guid: 8e864925492d19948be6f6b18968d59d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146633607718869358, guid: 8e864925492d19948be6f6b18968d59d, type: 3}
+      propertyPath: m_Text
+      value: Button
       objectReference: {fileID: 0}
     - target: {fileID: 9146633607718869358, guid: 8e864925492d19948be6f6b18968d59d, type: 3}
       propertyPath: m_FontData.m_MinSize
@@ -1326,6 +1330,10 @@ PrefabInstance:
     - target: {fileID: 9146633607883383912, guid: 8e864925492d19948be6f6b18968d59d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146633607883383918, guid: 8e864925492d19948be6f6b18968d59d, type: 3}
+      propertyPath: m_Text
+      value: Content
       objectReference: {fileID: 0}
     - target: {fileID: 9146633608710966117, guid: 8e864925492d19948be6f6b18968d59d, type: 3}
       propertyPath: m_Text

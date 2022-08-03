@@ -61,12 +61,15 @@ public class QuickPlayController : MonoBehaviourPunCallbacks
     {
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable();
+        roomOptions.CustomRoomProperties["MODE"] = "SOLO";
+        roomOptions.CustomRoomProperties["PVP"] = false;
+        roomOptions.CustomRoomProperties["MEMBER"] = 1;
         roomOptions.CustomRoomProperties["PROBLEMINDEX"] = 0;
         roomOptions.MaxPlayers = (byte)RoomSize;
 
         string randomRoomNumber = RandomRoomCode(5);
         PhotonNetwork.CreateRoom(randomRoomNumber, roomOptions);
-        
+
         Debug.Log("room code is " + randomRoomNumber);
     }
 
@@ -75,7 +78,7 @@ public class QuickPlayController : MonoBehaviourPunCallbacks
         string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         string roomCode = "QUICKPLAY";
 
-        for(int i = 0; i < range; i++)
+        for (int i = 0; i < range; i++)
         {
             roomCode += characters[Random.Range(0, characters.Length)];
         }

@@ -28,7 +28,7 @@ public class MyCustomProperties
         Hashtable properties = new Hashtable();
         properties["ISSPECTATE"] = isSpectate;
         properties["GAMEOVER"] = true;
-        properties["QUALIFIED"] = true;
+        properties["QUALIFIED"] = !isSpectate;
         properties["TEAM"] = teamName;
         return properties;
     }

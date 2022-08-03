@@ -47,10 +47,7 @@ public class QuickPlayWaitingRoom : MonoBehaviourPunCallbacks
 
     private void setPhotonProperties()
     {
-        myCustomProperties["ISPLAY"] = true;
-        myCustomProperties["QUALIFIED"] = true;
-        myCustomProperties["TEAM"] = null;
-        PhotonNetwork.LocalPlayer.SetCustomProperties(myCustomProperties);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setInfoProperties(false, null));
     }
     private void Update()
     {

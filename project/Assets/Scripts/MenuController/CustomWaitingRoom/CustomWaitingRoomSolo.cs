@@ -14,6 +14,7 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
 
     [Header("UI")]
     [SerializeField] private Text roomCode;
+    [SerializeField] private Toggle togglePVP;
     [SerializeField] private GameObject startBtn;
     [SerializeField] private PlayerCell playerCellPrefab;
     [SerializeField] private Transform spectatorContent;
@@ -22,19 +23,30 @@ public class CustomWaitingRoomSolo : MonoBehaviourPunCallbacks
     private List<Player> readyPlayerList = new List<Player>();
     private string mode;
     private int member;
+    private bool pvp;
 
     void Start()
     {
         mode = (string)PhotonNetwork.CurrentRoom.CustomProperties["MODE"];
         member = (int)PhotonNetwork.CurrentRoom.CustomProperties["MEMBER"];
+        pvp = (bool)PhotonNetwork.CurrentRoom.CustomProperties["PVP"];
+        togglePVP.isOn = pvp; 
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setInfoProperties(true, null));
         roomCode.text = PhotonNetwork.CurrentRoom.Name;
 
         if(!PhotonNetwork.IsMasterClient)
         {
+            togglePVP.gameObject.SetActive(false);
             startBtn.SetActive(false);
         }
+    }
+    // ******** Ontoggle ********
+    public void OnTogglePVP(bool newValue)
+    {
+        Hashtable properties = new Hashtable();
+        properties["PVP"] = newValue;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
     }
 
     // ******** OnClick ********

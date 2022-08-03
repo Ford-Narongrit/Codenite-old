@@ -10,9 +10,11 @@ public class Bullet : MonoBehaviour
     [SerializeField] private string ally;
     private PhotonView view;
     private int ownerViewID;
+    private bool isPvpOn = false;
     void Awake()
     {
         view = GetComponent<PhotonView>();
+        isPvpOn = (bool)PhotonNetwork.CurrentRoom.CustomProperties["PVP"];
         Destroy(gameObject, destroyTime);
     }
 
@@ -30,7 +32,7 @@ public class Bullet : MonoBehaviour
     {
         if (view.IsMine)
         {
-            if(ally == other.gameObject.tag)
+            if(ally == other.gameObject.tag && !isPvpOn)
             {
                 Destroy(gameObject);
                 return;

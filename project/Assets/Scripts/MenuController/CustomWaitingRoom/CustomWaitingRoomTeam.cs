@@ -14,6 +14,7 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
 
     [Header("UI")]
     [SerializeField] private Text roomCode;
+    [SerializeField] private Toggle togglePVP;
     [SerializeField] private GameObject startBtn;
     [SerializeField] private PlayerCell playerCellPrefab;
     [SerializeField] private TeamCell teamCellPrefab;
@@ -24,10 +25,14 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
     private List<Player> readyPlayerList = new List<Player>();
     private string mode;
     private int member;
+    private bool pvp;
     void Start()
     {
         mode = (string)PhotonNetwork.CurrentRoom.CustomProperties["MODE"];
         member = (int)PhotonNetwork.CurrentRoom.CustomProperties["MEMBER"];
+        pvp = (bool)PhotonNetwork.CurrentRoom.CustomProperties["PVP"];
+        
+        togglePVP.isOn = pvp; 
         int maxPlayer = PhotonNetwork.CurrentRoom.MaxPlayers;
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(MyCustomProperties.setInfoProperties(true, null));
@@ -35,6 +40,7 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
         roomCode.text = PhotonNetwork.CurrentRoom.Name;
         if (!PhotonNetwork.IsMasterClient)
         {
+            togglePVP.gameObject.SetActive(false);
             startBtn.SetActive(false);
         }
 
@@ -44,6 +50,13 @@ public class CustomWaitingRoomTeam : MonoBehaviourPunCallbacks
             newTeam.GetComponentInChildren<Button>().onClick.AddListener(delegate { OnClickJoin(newTeam.gameObject); });
             newTeam.setTeamName("TEAM" + i);
         }
+    }
+    // ******** Ontoggle ********
+    public void OnTogglePVP(bool newValue)
+    {
+        Hashtable properties = new Hashtable();
+        properties["PVP"] = newValue;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
     }
 
     // ******** OnClick ********

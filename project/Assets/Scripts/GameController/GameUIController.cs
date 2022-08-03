@@ -43,6 +43,8 @@ public class GameUIController : MonoBehaviourPunCallbacks
                 //TODO fix bug if close codePanel it get error because can't find gameobject
                 // codePanel.SetActive(!codePanel.activeSelf);
             }
+            howtoSpectate.SetActive(false);
+            howtoShoot.SetActive(true);
         }
         else
         {
